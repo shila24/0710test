@@ -31,5 +31,10 @@ async def run():
     logger_info.info("-- Landed")
 
 if __name__ == "__main__":
-    # Run the asyncio loop
-    asyncio.run(run())
+    try:
+      asyncio.run(run())
+
+    except KeyboardInterrupt:
+      await drone.action.kill()
+      logger_info.info("Program interrupted by user (Ctrl+C)")
+

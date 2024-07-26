@@ -18,5 +18,9 @@ async def print_status_text(drone):
       return
 
 if __name__ == "__main__":
-  loop = asyncio.get_event_loop()
-  loop.run_until_complete(run())
+  try:
+    asyncio.run(run())
+
+  except KeyboardInterrupt:
+    await drone.action.kill()
+    logger_info.info("Program interrupted by user (Ctrl+C)")
